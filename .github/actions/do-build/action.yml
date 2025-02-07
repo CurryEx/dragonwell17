@@ -72,6 +72,13 @@ runs:
         path: failure-logs
       if: steps.check.outputs.failure == 'true'
 
+    - name: 'Upload all build artifacts'
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts-${{ inputs.platform }}${{ inputs.debug-suffix }}
+        path: build/
+      if: steps.check.outputs.failure != 'true'
+
       # This is the best way I found to abort the job with an error message
     - name: 'Notify about build failures'
       uses: actions/github-script@v7
