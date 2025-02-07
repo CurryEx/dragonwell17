@@ -324,8 +324,10 @@ public class CgroupSubsystemFactory {
                         case PIDS_CTRL:
                         case BLKIO_CTRL: {
                             CgroupInfo info = infos.get(controllerName);
-                            setMountPoints(info, mountPath, mountRoot);
-                            cgroupv1ControllerFound = true;
+                            if (info != null) {
+                                setMountPoints(info, mountPath, mountRoot);
+                                cgroupv1ControllerFound = true;
+                            }
                             break;
                         }
                         default:
