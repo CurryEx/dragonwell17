@@ -1,5 +1,14 @@
 ![Dragonwell Logo](https://raw.githubusercontent.com/wiki/alibaba/dragonwell8/images/dragonwell_std_txt_horiz.png)
 
+# Fork Information
+
+
+尝试构建proot linux环境下可以使用的Dragonwell17
+
+目前已知问题与修复情况
+
+[ ] 1. 启动jar时报空指针
+
 # Introduction
 
 Over the years, Java has proliferated in Alibaba. Many applications are written in Java and many our Java developers have written more than one billion lines of Java code.
