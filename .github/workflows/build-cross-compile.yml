@@ -169,8 +169,8 @@ jobs:
           --with-boot-jdk=${{ steps.bootjdk.outputs.path }}
           --with-gtest=${{ steps.gtest.outputs.path }}
           --with-zlib=bundled
-          --with-extra-cflags="-I/usr/include/X11"
-          --with-extra-ldflags="-L/usr/lib/X11"
+          --with-extra-cflags="-Isysroot/usr/include"
+          --with-extra-ldflags="-Lsysroot/usr/lib"
           --enable-debug
           --disable-precompiled-headers
           --openjdk-target=${{ matrix.gnu-arch }}-linux-gnu${{ matrix.gnu-abi}}
