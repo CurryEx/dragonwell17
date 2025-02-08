@@ -115,7 +115,7 @@ jobs:
               g++-${{ inputs.gcc-major-version }}-${{ matrix.gnu-arch }}-linux-gnu${{ matrix.gnu-abi}} \
               libxrandr-dev libxtst-dev libcups2-dev libasound2-dev
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${{ inputs.gcc-major-version }} 100 --slave /usr/bin/g++ g++ /usr/bin/g++-${{ inputs.gcc-major-version }}
-          sudo apt-get install libz-dev zlib1g-dev
+          sudo apt-get install libz-dev zlib1g-dev libx11-dev
 
       - name: 'Check cache for sysroot'
         id: get-cached-sysroot
@@ -148,10 +148,10 @@ jobs:
           # Prepare sysroot and remove unused files to minimize cache
           sudo chroot sysroot symlinks -cr .
           sudo chown ${USER} -R sysroot
-          rm -rf sysroot/{dev,proc,run,sys,var}
-          rm -rf sysroot/usr/{sbin,bin,share}
-          rm -rf sysroot/usr/lib/{apt,gcc,udev,systemd}
-          rm -rf sysroot/usr/libexec/gcc
+#          rm -rf sysroot/{dev,proc,run,sys,var}
+#          rm -rf sysroot/usr/{sbin,bin,share}
+#          rm -rf sysroot/usr/lib/{apt,gcc,udev,systemd}
+#          rm -rf sysroot/usr/libexec/gcc
         if: steps.create-sysroot.outcome == 'success' && steps.get-cached-sysroot.outputs.cache-hit != 'true'
 
       - name: 'Remove broken sysroot'
@@ -166,7 +166,7 @@ jobs:
           --with-version-opt=${GITHUB_ACTOR}-${GITHUB_SHA}
           --with-boot-jdk=${{ steps.bootjdk.outputs.path }}
           --with-gtest=${{ steps.gtest.outputs.path }}
-          --with-zlib=bundled
+          --with-zlib=system
           --enable-debug
           --disable-precompiled-headers
           --openjdk-target=${{ matrix.gnu-arch }}-linux-gnu${{ matrix.gnu-abi}}
